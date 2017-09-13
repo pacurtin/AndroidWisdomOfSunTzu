@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Wisdom of Sun Tzu</string>
+    <string name="action_settings">Settings</string>
+    <string name="quote1">Politics means the thing which causes the people to be in harmony with there ruler so they will follow him in disregard of their lives and without fear of any danger.</string>
+    <string name="quote2">Doctrine consists of gradation of rank among officers, regulation of supply routes and provision of militiary materials to an army.</string>
+    <string name="quote3">All warfare is based on deception. Prepare against the enemy when he is secure at all points. Attack him where he is unprepared.</string>
+    <string name="quote4">To subdue the enemy without fighting is the supreme excellence.</string>
+</resources>
