@@ -41,7 +41,7 @@ class ImageCreator {
         TextPaint paint = new TextPaint();
         paint.setColor(Color.rgb(255, 255, 255)); // Text Color
         //paint.setStrokeWidth(12); // Text Size
-        paint.setTextSize(60);
+        paint.setTextSize((int)20*scale);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER)); // Text Overlapping Pattern
         // set text width to canvas width minus 72dp padding. Needed to avoid text running off right of screen in wallpaper due to android stretching wallpaper over three screens.
         int textWidth = canvas.getWidth() - (int) (72 * scale);
