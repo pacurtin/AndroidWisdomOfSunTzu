@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,21 +22,26 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final ImageCreator imageCreator = new ImageCreator(getApplicationContext());
+        final String[] quotes = getResources().getStringArray(R.array.sunTzuQuotes);
 
         FloatingActionButton refreshButton = (FloatingActionButton) findViewById(R.id.refreshButton);
         final ImageView image = (ImageView) findViewById(R.id.content_main_image);
-        refreshWallpaper(image,imageCreator);
+
+        refreshWallpaper(image,imageCreator, quotes);
 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                refreshWallpaper(image,imageCreator);
+                refreshWallpaper(image,imageCreator, quotes);
             }
         });
     }
 
-    void refreshWallpaper(ImageView image, ImageCreator imageCreator){
-        Bitmap wallpaper = imageCreator.addTextToImageBitmap(getString(R.string.quote1));
+    void refreshWallpaper(ImageView image, ImageCreator imageCreator, String[] quotes){
+        Random random = new Random();
+        int randomQuoteNum = random.nextInt(quotes.length);
+        String quote = quotes[randomQuoteNum];
+        Bitmap wallpaper = imageCreator.addTextToImageBitmap(quote);
         image.setImageBitmap(wallpaper);
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
         try{
@@ -44,5 +50,7 @@ public class MainActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
     }
+
+
 
 }
