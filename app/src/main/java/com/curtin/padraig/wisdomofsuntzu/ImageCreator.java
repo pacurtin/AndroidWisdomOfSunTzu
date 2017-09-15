@@ -37,13 +37,14 @@ class ImageCreator {
     public Bitmap addTextToImageBitmap(String quote){
         Bitmap rectangleBitmap = Bitmap.createBitmap(getScreenWidth(), getScreenHeight(), Bitmap.Config.RGB_565);    //Want a plain black background the size of the screen
         Canvas canvas = new Canvas(rectangleBitmap);
+        float scale = myContext.getResources().getDisplayMetrics().density;
         TextPaint paint = new TextPaint();
         paint.setColor(Color.rgb(255, 255, 255)); // Text Color
         //paint.setStrokeWidth(12); // Text Size
         paint.setTextSize(60);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER)); // Text Overlapping Pattern
-        // set text width to canvas width minus 16 padding
-        int textWidth = canvas.getWidth() - 16;
+        // set text width to canvas width minus 72dp padding. Needed to avoid text running off right of screen in wallpaper due to android stretching wallpaper over three screens.
+        int textWidth = canvas.getWidth() - (int) (72 * scale);
 
         // init StaticLayout for text
         StaticLayout textLayout = new StaticLayout( quote, paint, textWidth, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
@@ -55,8 +56,6 @@ class ImageCreator {
         float x = (rectangleBitmap.getWidth() - textWidth)/2;
         float y = (rectangleBitmap.getHeight() - textHeight)/2;
 
-        //canvas.drawBitmap(rectangleBitmap, 0, 0, paint);
-        //canvas.drawText("Testing... xxx bbbb vvbihb uibiu uhiuh iuhi fsdvsdbsd", getScreenWidth()/10, getScreenHeight()/3, paint);
         // draw text to the Canvas center
         canvas.save();
         canvas.translate(x, y);
