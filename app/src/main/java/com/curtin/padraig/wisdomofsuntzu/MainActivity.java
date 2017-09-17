@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,13 +33,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         imageCreator = new ImageCreator(getApplicationContext());
         quotes = getResources().getStringArray(R.array.sunTzuQuotes);
 
         FloatingActionButton refreshButton = (FloatingActionButton) findViewById(R.id.refreshButton);
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
         final ImageView image = (ImageView) findViewById(R.id.content_main_image);
 
         newWallPaper = refreshWallpaper(imageCreator, quotes);
@@ -52,11 +52,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RegisterAlarmBroadcast();
-        //long firstAlarmTime = 1000*60*60*5;//5AM in milliseconds
-        //long alarmInterval = 1000*60*60*24;//24Hrs in ms
-        long alarmInterval = 1000*60;
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), alarmInterval , pendingIntent);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkBox.isChecked()){
+                    RegisterAlarmBroadcast();
+                    long firstAlarmTime = 1000*60*60*5;//5AM in milliseconds
+                    long alarmInterval = 1000*60*60*24;//24Hrs in ms
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstAlarmTime, alarmInterval , pendingIntent);
+                }else{
+                    UnregisterAlarmBroadcast();
+                }
+            }
+        });
+
     }
 
     private void RegisterAlarmBroadcast() {
